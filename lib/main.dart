@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Shopping List App',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
