@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list/models/cat_model.dart';
+//import 'package:shopping_list/models/cat_model.dart';
 import '../data/categories.dart';
 
 class AddItem extends StatefulWidget {
@@ -61,7 +61,37 @@ class _AddItemState extends State<AddItem> {
                     ),
                   ),
                 ],
-              )
+              ),
+              const SizedBox(height: 35),
+              Center(
+                child: SizedBox(
+                  // width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      //_saveExpense();
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const HomeScreen(),
+                      //   ),
+                      // );
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        backgroundColor: const Color.fromARGB(255, 197, 168, 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 30,
+                          vertical: 15,
+                        )),
+                    child: const Text(
+                      'Save Expense',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ));
