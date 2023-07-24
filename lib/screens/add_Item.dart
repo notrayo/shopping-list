@@ -10,6 +10,18 @@ class AddItem extends StatefulWidget {
 }
 
 class _AddItemState extends State<AddItem> {
+  final _formKey = GlobalKey<FormState>();
+
+  //save item logic
+
+  void _saveItem() {
+    _formKey.currentState!.validate();
+  }
+
+  void _resetForm() {
+    _formKey.currentState!.reset();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +31,7 @@ class _AddItemState extends State<AddItem> {
         body: Padding(
           padding: const EdgeInsets.all(12),
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 TextFormField(
@@ -33,7 +46,7 @@ class _AddItemState extends State<AddItem> {
                         value.trim().length > 50) {
                       return 'please re-enter your item name';
                     }
-                    return 'test ...';
+                    return null;
                   },
                 ),
                 Row(
@@ -69,7 +82,7 @@ class _AddItemState extends State<AddItem> {
                           if (value == null || value.isEmpty) {
                             return 'please enter date';
                           }
-                          return 'test ...';
+                          return null;
                         },
                       ),
                     ),
@@ -80,12 +93,12 @@ class _AddItemState extends State<AddItem> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                        onPressed: () {}, child: const Text('Reset Form')),
+                        onPressed: _resetForm, child: const Text('Reset Form')),
                     const SizedBox(
                       width: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: _saveItem,
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
