@@ -10,12 +10,8 @@ final dummyData = [
       date: DateTime.now()),
   DummyDataItem(
       category: categories[Categories.clothes]!,
-      name: 'Nike SB',
+      name: 'Official Shoes',
       date: DateTime(2023, 7, 12)),
-  DummyDataItem(
-      category: categories[Categories.food]!,
-      name: 'Cooking Oil',
-      date: DateTime.now()),
   DummyDataItem(
       category: categories[Categories.techApparatus]!,
       name: 'Arduino Kit',

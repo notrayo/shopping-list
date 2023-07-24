@@ -18,81 +18,94 @@ class _AddItemState extends State<AddItem> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              TextFormField(
-                maxLength: 50,
-                decoration: const InputDecoration(
-                  label: Text('Enter name of item'),
+          child: Form(
+            child: Column(
+              children: [
+                TextFormField(
+                  maxLength: 50,
+                  decoration: const InputDecoration(
+                    label: Text('Enter name of item'),
+                  ),
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        value.trim().length <= 1 ||
+                        value.trim().length > 50) {
+                      return 'please re-enter your item name';
+                    }
+                    return 'test ...';
+                  },
                 ),
-                validator: (value) {
-                  return 'test ...';
-                },
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: DropdownButtonFormField(items: [
-                      for (final category in categories.entries)
-                        DropdownMenuItem(
-                            value: category.value,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 15,
-                                  height: 15,
-                                  color: category.value.color,
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(category.value.title)
-                              ],
-                            ))
-                    ], onChanged: (value) {}),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text('date and time ...')),
+                Row(
+                  children: [
+                    Expanded(
+                      child: DropdownButtonFormField(items: [
+                        for (final category in categories.entries)
+                          DropdownMenuItem(
+                              value: category.value,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 15,
+                                    height: 15,
+                                    color: category.value.color,
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(category.value.title)
+                                ],
+                              ))
+                      ], onChanged: (value) {}),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 35),
-              Center(
-                child: SizedBox(
-                  // width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      //_saveExpense();
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const HomeScreen(),
-                      //   ),
-                      // );
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        backgroundColor: const Color.fromARGB(255, 197, 168, 6),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 30,
-                          vertical: 15,
-                        )),
-                    child: const Text(
-                      'Save Expense',
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                    const SizedBox(
+                      width: 15,
                     ),
-                  ),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                            label: Text('date and time ...')),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'please enter date';
+                          }
+                          return 'test ...';
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 55),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                        onPressed: () {}, child: const Text('Reset Form')),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          backgroundColor:
+                              const Color.fromARGB(255, 240, 208, 24),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 12,
+                          )),
+                      child: const Text(
+                        'Save',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ));
   }
