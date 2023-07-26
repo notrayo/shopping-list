@@ -5,8 +5,15 @@ import './add_Item.dart';
 
 import 'dart:ui';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<DummyDataItem> _shoppingList = [];
 
   void _showItemDetails(BuildContext context, DummyDataItem item) {
     showModalBottomSheet(
@@ -30,7 +37,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Date: ${item.date.toString()}',
+                'Date: ${item.date}',
                 style: const TextStyle(fontSize: 18),
               ),
             ],

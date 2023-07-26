@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list/models/cat_model.dart';
+import 'package:shopping_list/models/data_model.dart';
 //import 'package:shopping_list/models/cat_model.dart';
 import '../data/categories.dart';
 import 'package:intl/intl.dart';
@@ -34,6 +35,9 @@ class _AddItemState extends State<AddItem> {
     print(_enteredName);
     print(_enteredCategory);
     print(_enteredDate);
+
+    Navigator.of(context).pop(DummyDataItem(
+        category: _enteredCategory, name: _enteredName, date: _enteredDate));
   }
 
   void _resetForm() {

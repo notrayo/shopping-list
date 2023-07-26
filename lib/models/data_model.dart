@@ -8,7 +8,7 @@ class DummyDataItem {
   final String id;
   final String name;
   //final double amount;
-  final DateTime date;
+  final String date;
   final Category category;
 
   DummyDataItem(

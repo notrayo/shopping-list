@@ -7,17 +7,17 @@ final dummyData = [
   DummyDataItem(
       category: categories[Categories.food]!,
       name: 'Unga ya ugali',
-      date: DateTime.now()),
+      date: '2023-06-09'),
   DummyDataItem(
       category: categories[Categories.clothes]!,
       name: 'Official Shoes',
-      date: DateTime(2023, 7, 12)),
+      date: '2023-01-01'),
   DummyDataItem(
       category: categories[Categories.techApparatus]!,
       name: 'Arduino Kit',
-      date: DateTime.now()),
+      date: '2023-07-01'),
   DummyDataItem(
       category: categories[Categories.furniture]!,
       name: 'Dining Table Repair',
-      date: DateTime.now()),
+      date: '2021-01-10'),
 ];
