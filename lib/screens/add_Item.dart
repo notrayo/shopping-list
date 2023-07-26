@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list/models/cat_model.dart';
 //import 'package:shopping_list/models/cat_model.dart';
 import '../data/categories.dart';
+import 'package:intl/intl.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({super.key});
@@ -12,14 +14,46 @@ class AddItem extends StatefulWidget {
 class _AddItemState extends State<AddItem> {
   final _formKey = GlobalKey<FormState>();
 
+  TextEditingController _dateControl = TextEditingController();
+  var _enteredName = '';
+  var _enteredCategory = categories[Categories.food]!;
+  var _enteredDate = '2000-01-01';
+
+  @override
+  void dispose() {
+    _dateControl.dispose();
+    super.dispose();
+  }
+
   //save item logic
 
   void _saveItem() {
-    _formKey.currentState!.validate();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+    }
+    print(_enteredName);
+    print(_enteredCategory);
+    print(_enteredDate);
   }
 
   void _resetForm() {
     _formKey.currentState!.reset();
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2030),
+    );
+
+    if (pickedDate != null && pickedDate != DateTime.now()) {
+      setState(() {
+        _dateControl.text = DateFormat('yyyy-MM-dd')
+            .format(pickedDate); // Set the selected date
+      });
+    }
   }
 
   @override
@@ -48,43 +82,62 @@ class _AddItemState extends State<AddItem> {
                     }
                     return null;
                   },
+                  onSaved: (value) {
+                    _enteredName = value!;
+                  },
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: DropdownButtonFormField(items: [
-                        for (final category in categories.entries)
-                          DropdownMenuItem(
-                              value: category.value,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 15,
-                                    height: 15,
-                                    color: category.value.color,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text(category.value.title)
-                                ],
-                              ))
-                      ], onChanged: (value) {}),
-                    ),
-                    const SizedBox(
-                      width: 15,
+                      child: DropdownButtonFormField(
+                        value: _enteredCategory,
+                        items: [
+                          for (final category in categories.entries)
+                            DropdownMenuItem(
+                                value: category.value,
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 15,
+                                      height: 15,
+                                      color: category.value.color,
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text(category.value.title)
+                                  ],
+                                ))
+                        ],
+                        onChanged: (value) {
+                          _enteredCategory = value!;
+                        },
+                      ),
                     ),
                     Expanded(
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                            label: Text('date and time ...')),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'please enter date';
-                          }
-                          return null;
-                        },
+                          controller: _dateControl,
+                          decoration:
+                              const InputDecoration(label: Text('date')),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'please pick date ';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _enteredDate = value!;
+                          }),
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.calendar_today,
+                        color: Colors.white,
                       ),
+                      iconSize: 22,
+                      onPressed: () {
+                        _selectDate(context);
+                      },
                     ),
                   ],
                 ),
